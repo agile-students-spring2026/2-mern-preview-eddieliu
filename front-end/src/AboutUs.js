@@ -9,7 +9,7 @@ const AboutUs = (props) => {
             <img id="EddieLiuPhoto" src={EddieLiuPhoto} alt="A photo of Eddie Liu"/>
             <h3 id="EddieLiuName">Eddie Liu</h3>
             <p id="EddieLiuBio">Eddie Liu is an AI & Backend Developer exploring agentic AI and rapid prototyping while continuing to grow his full-stack skills.</p>
-            <p id="EddieLiuHobbies">When he's not staring at a terminal, he like reading📚, working out💪, playing guitar🎸, or learning new languages🌍.</p>
+            <p id="EddieLiuHobbies">When he's not staring at a terminal, he likes reading📚, working out💪, playing guitar🎸, or learning new languages🌍.</p>
         </>
     )
 }
