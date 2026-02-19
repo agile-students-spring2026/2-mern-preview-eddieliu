@@ -12,6 +12,8 @@ app.use(cors()) // allow cross-origin resource sharing
 app.use(express.json()) // decode JSON-formatted incoming POST data
 app.use(express.urlencoded({ extended: true })) // decode url-encoded incoming POST data
 
+app.use('/image', express.static('image'))
+
 // connect to database
 mongoose
   .connect(`${process.env.DB_CONNECTION_STRING}`)
@@ -21,6 +23,7 @@ mongoose
 // load the dataabase models we want to deal with
 const { Message } = require('./models/Message')
 const { User } = require('./models/User')
+const { aboutUsData } = require('./models/AboutUsData')
 
 // a route to handle fetching all messages
 app.get('/messages', async (req, res) => {
@@ -76,6 +79,19 @@ app.post('/messages/save', async (req, res) => {
       status: 'failed to save the message to the database',
     })
   }
+})
+
+// a route to handle fetching the about us page
+app.get('/about-us', (req, res) => {
+  res.json({
+    title: aboutUsData.title,
+    name: aboutUsData.name,
+    imgUrl: aboutUsData.img.src,
+    imgAlt: aboutUsData.img.alt,
+    bio: aboutUsData.bio,
+    hobbies: aboutUsData.hobbies,
+    status: 'all good',
+  })
 })
 
 // export the express app we created to make it available to other modules

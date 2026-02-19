@@ -1,17 +1,34 @@
-import { Link } from "react-router-dom";
+import React, { useState, useEffect } from 'react';
 import "./AboutUs.css";
-import EddieLiuPhoto from "./image/EddieLiuPhoto.jpg";
 
-const AboutUs = (props) => {
+const AboutUs = () => {
+    const [data, setData] = useState(null);
+
+    useEffect(() => {
+        fetch("http://localhost:5002/about-us")
+            .then(response => response.json())
+            .then(result => {
+                console.log("About Us Data:", result);
+                setData(result);
+            })
+            .catch(error => {
+                console.error("Error fetching About Us data:", error);
+            });
+    }, []);
+
+    if (!data) {
+        return <div>Loading...</div>;
+    }
+
     return (
-        <>
-            <h1>About Us</h1>
-            <img id="EddieLiuPhoto" src={EddieLiuPhoto} alt="A photo of Eddie Liu"/>
-            <h3 id="EddieLiuName">Eddie Liu</h3>
-            <p id="EddieLiuBio">Eddie Liu is an AI & Backend Developer exploring agentic AI and rapid prototyping while continuing to grow his full-stack skills.</p>
-            <p id="EddieLiuHobbies">When he's not staring at a terminal, he likes reading📚, working out💪, playing guitar🎸, or learning new languages🌍.</p>
-        </>
-    )
+        <div className="about-us">
+            <h1>{data.title}</h1>
+            <img id="EddieLiuPhoto" src={data.imgUrl} alt={data.imgAlt} />
+            <h3 id="EddieLiuName">{data.name}</h3>
+            <p id="EddieLiuBio">{data.bio}</p>
+            <p id="EddieLiuHobbies">{data.hobbies}</p>
+        </div>
+    );
 }
 
 export default AboutUs;
